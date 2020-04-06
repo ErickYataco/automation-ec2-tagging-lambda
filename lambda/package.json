@@ -1,8 +1,8 @@
 {
-  "name": "lambda-allow-tagging-ec2",
+  "name": "lambda-tag-ec2-resources",
   "version": "1.0.0",
   "description": "lambda function to tagging EC2 instances ",
-  "main": "LambdaAllowTaggingEC2.js",
+  "main": "LambadaTagEC2Resources.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

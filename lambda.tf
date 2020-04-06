@@ -56,44 +56,35 @@ resource "aws_iam_role_policy_attachment" "LambdaTagBasedEC2RestrictionsAttachme
 
 data "null_data_source" "lambda_file" {
   inputs = {
-    filename = "/function/logsConsumer.js"
+    filename = "/lambda/LambadaTagEC2Resources.js"
   }
 }
 
 data "null_data_source" "lambda_archive" {
   inputs = {
-    filename = "${path.module}/function/logsConsumer.zip"
+    filename = "/lambda/LambadaTagEC2Resources.zip"
   }
 } 
 
-data "archive_file" "lambda_kinesis_stream_to_influxDB" {
+data "archive_file" "lambda" {
   type        = "zip"
   # source_file = "${data.null_data_source.lambda_file.outputs.filename}"
-  source_dir  = "${path.module}/function"
+  source_dir  = "/lambda"
   output_path = "${data.null_data_source.lambda_archive.outputs.filename}"
 }
 
 resource "aws_cloudwatch_log_group" "lambda_function_logging_group" {
-  name = "/aws/lambda/${var.LAMBDA_FUNCTION_NAME}"
+  name = "/aws/lambda/LambadaTagEC2Resources"
 }
 
 resource "aws_lambda_function" "LambadaTagEC2Resources" {
-  filename         = "${data.archive_file.lambda_kinesis_stream_to_influxDB.output_path}"
-  function_name    = "${var.LAMBDA_FUNCTION_NAME}"
-  role             = "${aws_iam_role.lambda.arn}"
+  filename         = "${data.archive_file.lambda.output_path}"
+  function_name    = "LambadaTagEC2Resources"
+  role             = "${aws_iam_role.LambdaAllowTaggingEC2Role.arn}"
   handler          = "logsConsumer.handler"
-  source_code_hash = "${data.archive_file.lambda_kinesis_stream_to_influxDB.output_base64sha256}"
+  source_code_hash = "${data.archive_file.lambda.output_base64sha256}"
   runtime          = "nodejs10.x"
   timeout          = 60
-
-  environment {
-    variables = {
-      INFLUXDB_IP     = "${aws_instance.influxdb.public_ip}"
-      INFLUXDB_BUCKET = "${var.INFLUXDB_BUCKET}"
-      INFLUXDB_ORG    = "${var.INFLUXDB_ORG}"
-      INFLUXDB_TOKEN  = "${var.INFLUXDB_TOKEN}"
-    }
-  }
 
 }
 
