@@ -1,0 +1,14 @@
+{
+  "name": "lambda-allow-tagging-ec2",
+  "version": "1.0.0",
+  "description": "lambda function to tagging EC2 instances ",
+  "main": "LambdaAllowTaggingEC2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "erick.yataco.s@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.653.0"
+  }
+}
