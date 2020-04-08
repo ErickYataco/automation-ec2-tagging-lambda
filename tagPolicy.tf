@@ -37,7 +37,7 @@ resource "aws_iam_policy" "TagBasedEC2RestrictionsPolicy" {
       "Resource": "*",
       "Condition": {
         "StringEquals":{
-          "ec2:ResourceTag/Owner": "'$'{aws:username}"
+          "ec2:ResourceTag/Owner": "$${aws:username}"
         }
       }
     }
