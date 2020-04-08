@@ -18,7 +18,7 @@ resource "aws_iam_policy" "TagBasedEC2RestrictionsPolicy" {
         "ec2:AuthorizeSecurityGroupIngress",
         "ec2:DeleteSecurityGroup",
         "ec2:RevokeSecurityGroupEgress",
-        "ec2:RevokeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
       ],
       "Resource": "*"
     },
@@ -32,13 +32,13 @@ resource "aws_iam_policy" "TagBasedEC2RestrictionsPolicy" {
         "ec2:TerminateInstances",
         "ec2:AttachVolume",
         "ec2:DetachVolume",
-        "ec2:DeletehVolume",
+        "ec2:DeletehVolume"
       ],
       "Resource": "*",
       "Condition": {
-          "StringEquals":{
-              "ec2:ResourceTag/Owner": "$""{aws:username}"
-          }
+        "StringEquals":{
+          "ec2:ResourceTag/Owner": "'$'{aws:username}"
+        }
       }
     }
   ]

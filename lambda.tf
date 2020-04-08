@@ -24,25 +24,23 @@ resource "aws_iam_policy" "LambdaAllowTaggingEC2Policy" {
   policy = <<EOF
 {
   "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-      ],
-      "Resource": "arn:aws:logs:*:*:*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "ec2:CreateTags",
-        "ec2:Describe*",
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    }
-  ]
+  "Statement": [{
+    "Action": [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ],
+    "Resource": "arn:aws:logs:*:*:*",
+    "Effect": "Allow"
+  },
+  {
+    "Action": [
+      "ec2:CreateTags",
+      "ec2:Describe*"
+    ],
+    "Resource": "*",
+    "Effect": "Allow"
+  }]
 }
 EOF
 }
@@ -62,14 +60,14 @@ data "null_data_source" "lambda_file" {
 
 data "null_data_source" "lambda_archive" {
   inputs = {
-    filename = "/lambda/LambadaTagEC2Resources.zip"
+    filename = "${path.module}/lambda/LambadaTagEC2Resources.zip"
   }
 } 
 
 data "archive_file" "lambda" {
   type        = "zip"
   # source_file = "${data.null_data_source.lambda_file.outputs.filename}"
-  source_dir  = "/lambda"
+  source_dir  = "${path.module}/lambda"
   output_path = "${data.null_data_source.lambda_archive.outputs.filename}"
 }
 

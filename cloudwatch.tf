@@ -5,19 +5,19 @@ resource "aws_cloudwatch_event_rule" "AutoTagResources" {
 {
   "source": [
       "aws:ec2"
-  ]  
+  ],  
   "detail-type": [
     "AWS API Call via CloudTrail"
-  ]
+  ],
   "detail":{
     "eventSource":[
       "ec2.amazonaws.com"
     ],
     "eventName":[
-        "CreateImage",
-        "CreateSnapshot",
-        "CreateVolume",
-        "RunInstances"
+      "CreateImage",
+      "CreateSnapshot",
+      "CreateVolume",
+      "RunInstances"
     ]
   }
 }
