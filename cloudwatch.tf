@@ -4,7 +4,7 @@ resource "aws_cloudwatch_event_rule" "AutoTagResources" {
   event_pattern = <<PATTERN
 {
   "source": [
-      "aws:ec2"
+      "aws.ec2"
   ],  
   "detail-type": [
     "AWS API Call via CloudTrail"

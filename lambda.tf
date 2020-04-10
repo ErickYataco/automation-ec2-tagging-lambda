@@ -79,7 +79,7 @@ resource "aws_lambda_function" "LambadaTagEC2Resources" {
   filename         = "${data.archive_file.lambda.output_path}"
   function_name    = "LambadaTagEC2Resources"
   role             = "${aws_iam_role.LambdaAllowTaggingEC2Role.arn}"
-  handler          = "logsConsumer.handler"
+  handler          = "LambadaTagEC2Resources.handler"
   source_code_hash = "${data.archive_file.lambda.output_base64sha256}"
   runtime          = "nodejs10.x"
   timeout          = 60
