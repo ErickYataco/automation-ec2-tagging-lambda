@@ -5,4 +5,4 @@ Project to automate the tagging of EC2 instances and their corresponding resourc
 
 
 
-![](automation-ec2-tagging-lambda.png | width=500)
+![](automation-ec2-tagging-lambda.png)
