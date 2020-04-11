@@ -86,4 +86,12 @@ resource "aws_lambda_function" "LambadaTagEC2Resources" {
 
 }
 
+resource "aws_lambda_permission" "allowAutoTagResourcesRule" {
+    statement_id = "AllowExecutionFromCloudWatchTagRule"
+    action = "lambda:InvokeFunction"
+    function_name = "${aws_lambda_function.LambadaTagEC2Resources.function_name}"
+    principal = "events.amazonaws.com"
+    source_arn = "${aws_cloudwatch_event_rule.AutoTagResources.arn}"
+}
+
 
